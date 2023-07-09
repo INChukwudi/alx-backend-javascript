@@ -23,6 +23,7 @@ const printTeacher: printTeacherFunction = function (firstName: string, lastName
     return `${firstName[0]}. ${lastName}`;
 }
 
+// StudentInterface Interface for the StudentClass
 interface StudentInterface {
     firstname: string;
     lastname: string;
@@ -30,10 +31,12 @@ interface StudentInterface {
     displayName(): string;
 }
 
+// StudentConstructor Interface for the StudentClass Constructor
 interface StudentConstructor {
     new (firstname: string, lastname: string): StudentInterface;
 }
 
+// StudentClass of type StudentConstructor
 const StudentClass: StudentConstructor = class StudentClass implements StudentInterface {
     firstname: string;
     lastname: string;
