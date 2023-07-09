@@ -1,15 +1,16 @@
-// Interface bearing the expected methods
-interface EmployeeExpectedMethods {
+// DirectorInterface extending the ExpectedMethods interface
+interface DirectorInterface {
+    workDirectorTasks(): string;
     workFromHome(): string;
     getCoffeeBreak(): string;
-    workDirectorTasks(): string;
 }
 
-// DirectorInterface extending the ExpectedMethods interface
-interface DirectorInterface extends EmployeeExpectedMethods { }
-
 // TeacherInterface extending the ExpectedMethods interface
-interface TeacherInterface extends EmployeeExpectedMethods { }
+interface TeacherInterface {
+    workTeacherTasks(): string;
+    workFromHome(): string;
+    getCoffeeBreak(): string;
+}
 
 class Director implements DirectorInterface {
     getCoffeeBreak(): string {
@@ -31,7 +32,7 @@ class Teacher implements TeacherInterface {
         return 'Cannot work from home';
     }
 
-    workDirectorTasks(): string {
+    workTeacherTasks(): string {
         return 'Cannot have a break';
     }
 
@@ -48,4 +49,19 @@ function createEmployee(salary: number | string): Director | Teacher {
     }
 
     return new Director();
+}
+
+// function to check if employee is a Director instance
+function isDirector(employee: Director | Teacher): employee is Director {
+    return employee instanceof Director;
+}
+
+// function to execute methods based on the type of the employee passed in
+function executeWork(employee: Director | Teacher) {
+    if (isDirector(employee)) {
+        console.log(employee.workDirectorTasks());
+        return;
+    }
+
+    console.log((employee as Teacher).workTeacherTasks());
 }
