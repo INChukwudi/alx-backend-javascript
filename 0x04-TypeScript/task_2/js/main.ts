@@ -59,9 +59,20 @@ function isDirector(employee: Director | Teacher): employee is Director {
 // function to execute methods based on the type of the employee passed in
 function executeWork(employee: Director | Teacher) {
     if (isDirector(employee)) {
-        console.log(employee.workDirectorTasks());
+        employee.workDirectorTasks();
         return;
     }
 
-    console.log((employee as Teacher).workTeacherTasks());
+    (employee as Teacher).workTeacherTasks();
 }
+
+// subjects type
+type Subjects = 'Math' | 'History';
+
+// teachClass function that returns the class for today
+function teachClass(todayClass: Subjects): string {
+    if (todayClass === 'Math') return 'Teaching Math';
+
+    return 'Teaching History';
+}
+
