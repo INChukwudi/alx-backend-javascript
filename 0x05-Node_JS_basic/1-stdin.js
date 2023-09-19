@@ -18,4 +18,3 @@ rl.question('', (name) => {
 process.on('SIGINT', () => {
   rl.close();
 });
-
