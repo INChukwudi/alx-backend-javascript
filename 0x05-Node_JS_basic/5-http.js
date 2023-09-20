@@ -3,12 +3,7 @@ const url = require('url');
 
 const countStudents = require('./3-read_file_async');
 
-const args = process.argv.slice(2);
-/*if (args.length !== 1) {
-  console.error('Usage: node 5-http.js <database_file>');
-  process.exit(1);
-}*/
-const databaseFile = args[0];
+const databaseFile = process.argv[2];
 
 const app = http.createServer(async (req, res) => {
   const { pathname } = url.parse(req.url);
