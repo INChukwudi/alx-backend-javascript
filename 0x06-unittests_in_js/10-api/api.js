@@ -2,6 +2,8 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
   res.send('Welcome to the payment system');
 });
@@ -22,7 +24,7 @@ app.get('/available_payments', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  const userName = req.body.username;
+  const { userName } = req.body;
   if (!userName) {
     return res.status(400).json({ error: 'username is not found' });
   }
