@@ -116,3 +116,65 @@ describe('Payment System API Available Methods Endpoint', () => {
     });
   });
 });
+
+describe('Payment Syetem API Login Endpoint', () => {
+  const endpoint = '/login';
+
+  it('should return a 200 status code when the username is sent', (done) => {
+    const userName = 'Bob';
+    request.post(
+      {
+        url: `${baseUrl}${endpoint}`,
+        json: { userName },
+      },
+      (error, response, body) => {
+        if (error) done(error);
+        expect(response.statusCode).to.equal(200);
+        done();
+      }
+    );
+  });
+
+  it('should return a 200 status code with a welcome message when a username is sent', (done) => {
+    const userName = 'Chuks';
+    request.post(
+      {
+        url: `${baseUrl}${endpoint}`,
+        json: { userName },
+      },
+      (error, response, body) => {
+        if (error) done(error);
+        expect(response.statusCode).to.equal(200);
+        expect(body).to.equal(`Welcome ${userName}`);
+        done();
+      }
+    );
+  });
+
+  it('should return a 400 status code when userName is missing', (done) => {
+    request.post(
+      {
+        url: `${baseUrl}${endpoint}`,
+      },
+      (error, response) => {
+        if (error) done(error);
+        expect(response.statusCode).to.equal(400);
+        done();
+      }
+    );
+  });
+
+  it('should return a 400 status code when userName is an empty string', (done) => {
+    request.post(
+      {
+        url: `${baseUrl}${endpoint}`,
+        json: { userName: '' },
+      },
+      (error, response) => {
+        if (error) done(error);
+        expect(response.statusCode).to.equal(400);
+        done();
+      }
+    );
+  });
+});

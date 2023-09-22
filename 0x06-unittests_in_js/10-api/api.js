@@ -29,7 +29,7 @@ app.post('/login', (req, res) => {
     return res.status(400).json({ error: 'username is not found' });
   }
 
-  res.json({ message: `Welcome ${userName}` });
+  res.send(`Welcome ${userName}`);
 });
 
 const port = 7865;
