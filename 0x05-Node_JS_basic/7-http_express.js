@@ -1,12 +1,7 @@
 const express = require('express');
 const countStudents = require('./3-read_file_async');
 
-const args = process.argv.slice(2);
-if (args.length !== 1) {
-  console.error('Usage: node 7-http_express.js <database_file>');
-  process.exit(1);
-}
-const databaseFile = args[0];
+const databaseFile = process.argv[2];
 
 const app = express();
 const port = 1245;
