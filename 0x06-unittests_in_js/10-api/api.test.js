@@ -51,3 +51,68 @@ describe('Payment System API Cart Page', () => {
     });
   });
 });
+
+describe('Payment System API Available Methods Endpoint', () => {
+  const endpoint = '/available_payments';
+
+  it('should return a 200 status code', (done) => {
+    request.get(`${baseUrl}${endpoint}`, (error, response) => {
+      if (error) done(error);
+      expect(response.statusCode).to.equal(200);
+      done();
+    });
+  });
+
+  it('should return a string in the response body', (done) => {
+    request.get(`${baseUrl}${endpoint}`, (error, _, body) => {
+      if (error) done(error);
+      expect(body).to.be.a('string');
+      done();
+    });
+  });
+
+  it('should return a JSON object in the response body when parsed as JSON', (done) => {
+    request.get(`${baseUrl}${endpoint}`, (error, _, body) => {
+      if (error) done(error);
+      let responseBody;
+      try {
+        responseBody = JSON.parse(body);
+      } catch (parseError) {
+        done('Response body is not valid JSON');
+      }
+      expect(responseBody).to.be.an('object');
+      done();
+    });
+  });
+
+  it('should have a payment_methods object with credit_cards and paypal properties', (done) => {
+    request.get(`${baseUrl}${endpoint}`, (error, _, body) => {
+      if (error) done(error);
+      let responseBody;
+      try {
+        responseBody = JSON.parse(body);
+      } catch (parseError) {
+        done('Response body is not valid JSON');
+      }
+      expect(responseBody).to.have.property('payment_methods').that.is.an('object');
+      expect(responseBody.payment_methods).to.have.property('credit_cards').that.is.a('boolean');
+      expect(responseBody.payment_methods).to.have.property('paypal').that.is.a('boolean');
+      done();
+    });
+  });
+
+  it('should have correct payment_methods values for credit_cards as true and paypal as false)', (done) => {
+    request.get(`${baseUrl}${endpoint}`, (error, _, body) => {
+      if (error) done(error);
+      let responseBody;
+      try {
+        responseBody = JSON.parse(body);
+      } catch (parseError) {
+        throw done('Response body is not valid JSON');
+      }
+      expect(responseBody.payment_methods.credit_cards).to.equal(true);
+      expect(responseBody.payment_methods.paypal).to.equal(false);
+      done();
+    });
+  });
+});
